@@ -59,7 +59,7 @@ const SYSTEM_PROMPT = `Você é o assistente virtual de atendimento inicial da V
 Sites institucionais, integrações CRM/ERP via API, discadores automáticos (Power, Preditivo, Preview, Torpedo de Voz), URAs personalizadas, call center multicanal e consultoria em telecomunicações. Um consultor elabora proposta personalizada em até 1 dia útil.
 
 ## Contato Comercial
-- WhatsApp: (11) 93058-0000
+- WhatsApp: (11) 93058-6858
 - Site: https://vilitecnologia.com.br
 
 ## Diretrizes
