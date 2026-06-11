@@ -35,17 +35,14 @@ export function Chat() {
         body: JSON.stringify({ messages: history }),
       });
 
-      if (!res.ok) throw new Error('Erro na resposta do servidor');
+      if (!res.ok) throw new Error();
 
       const data = await res.json();
       setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
     } catch {
       setMessages((prev) => [
         ...prev,
-        {
-          role: 'assistant',
-          content: 'Desculpe, tive um problema ao me conectar. Por favor, tente novamente.',
-        },
+        { role: 'assistant', content: 'Desculpe, tive um problema ao me conectar. Tente novamente.' },
       ]);
     } finally {
       setIsLoading(false);
@@ -57,28 +54,31 @@ export function Chat() {
   }
 
   return (
-    <div className="chat">
-      <div className="chat__messages">
+    <div className="flex flex-col h-full bg-slate-50">
+      <div className="flex-1 overflow-y-auto px-4 py-6 space-y-3">
         {messages.map((msg, i) => (
           <Message key={i} role={msg.role} content={msg.content} />
         ))}
 
         {isLoading && (
-          <div className="message message--assistant">
-            <span className="chat__typing">
-              <span />
-              <span />
-              <span />
-            </span>
+          <div className="flex justify-start">
+            <div className="bg-white rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm flex gap-1 items-center">
+              <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+              <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+            </div>
           </div>
         )}
 
         <div ref={bottomRef} />
       </div>
 
-      <form className="chat__form" onSubmit={handleSubmit}>
+      <form
+        className="shrink-0 border-t border-slate-200 bg-white px-4 py-3 flex gap-2"
+        onSubmit={handleSubmit}
+      >
         <input
-          className="chat__input"
+          className="flex-1 rounded-full border border-slate-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
           type="text"
           placeholder="Digite sua mensagem..."
           value={input}
@@ -88,7 +88,7 @@ export function Chat() {
           autoFocus
         />
         <button
-          className="chat__button"
+          className="bg-blue-600 text-white rounded-full px-5 py-2 text-sm font-medium hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           type="submit"
           disabled={isLoading || !input.trim()}
         >
