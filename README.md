@@ -1,16 +1,80 @@
-# React + Vite
+# Vili Bot Leads — Atendimento Virtual
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bot web de atendimento inicial e captação de leads para a **Vili Tecnologia**, empresa especializada em VoIP, PABX IP, troncos SIP e desenvolvimento web.
 
-Currently, two official plugins are available:
+> Projeto de extensão universitária — Engenharia de Software 3, FATEC Carapicuíba (2026)  
+> Coletivo externo: [Vili Tecnologia](https://vilitecnologia.com.br)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Chat web em tempo real com IA (Groq — LLaMA 3.3 70B)
+- Responde dúvidas sobre serviços, planos e preços da Vili
+- Qualifica leads: coleta nome, empresa, quantidade de ramais e contato
+- Indicador de digitação animado
+- Interface responsiva (desktop e mobile)
+- Renderização de Markdown nas respostas
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Stack
+
+| Camada | Tecnologia |
+|--------|-----------|
+| Frontend | React 19 + Vite + Tailwind CSS v4 |
+| Backend | Node.js + Express |
+| IA | Groq API (`llama-3.3-70b-versatile`) |
+| Deploy | Render (Static Site + Web Service) |
+
+---
+
+## Como rodar localmente
+
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/vyctoriak/vili-bot-leads.git
+cd vili-bot-leads
+
+# 2. Instalar dependências
+npm install
+
+# 3. Configurar variáveis de ambiente
+cp .env.example .env
+# Preencha GROQ_API_KEY com sua chave em https://console.groq.com
+
+# 4. Subir frontend e backend juntos
+npm start
+```
+
+Acesse: [http://localhost:5173](http://localhost:5173)
+
+> Para rodar separadamente: `npm run server` (porta 3001) e `npm run dev` (porta 5173).
+
+---
+
+## Variáveis de ambiente
+
+| Variável | Descrição |
+|----------|-----------|
+| `GROQ_API_KEY` | Chave da API Groq (obrigatória no backend) |
+| `PORT` | Porta do servidor Express (padrão: 3001) |
+| `FRONTEND_URL` | URL do frontend em produção (para CORS) |
+| `VITE_API_URL` | URL do backend em produção (usado no build do frontend) |
+
+---
+
+## Estrutura do projeto
+
+```
+├── server.js              # Backend Express + integração Groq
+├── src/
+│   ├── App.jsx            # Layout principal
+│   └── components/
+│       ├── Chat.jsx       # Lógica do chat (estado, fetch, scroll)
+│       └── Message.jsx    # Bolha de mensagem com Markdown
+├── public/
+│   └── favicon.svg
+├── index.html
+└── PRD.md                 # Product Requirements Document
+```
